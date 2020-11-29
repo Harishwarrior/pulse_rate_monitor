@@ -1,0 +1,30 @@
+name: PPG
+description: Measure PPG using the phone's camera.
+
+version: 1.0.1+2
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  charts_flutter: ^0.9.0
+  wakelock: ^0.1.4+1
+  flutter_better_camera: ^0.6.1
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.7.3
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/icon.png"
+
+
+
+flutter:
+  uses-material-design: true
