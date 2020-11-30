@@ -1,4 +1,4 @@
-import 'package:PPG/view/home_view.dart';
+import 'package:pulse_rate_monitor/view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
