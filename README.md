@@ -3,10 +3,17 @@
 Application that measures the pulse rate using the phone's camera and its flash.
 
 
-## Screenshots
-![](https://github.com/Harishwarrior/pulse_rate_monitor/blob/master/Screenshot_20201130-145527.jpg) 
-
-![](https://github.com/Harishwarrior/pulse_rate_monitor/blob/master/Screenshot_20201130-145644.jpg) 
+# Screenshots
+<table>
+  <tr>
+    <td>Home screen</td>
+     <td>Conference connected</td>
+  </tr>
+  <tr>
+    <td><img src="Screenshot_20201130-145527.jpg" width=240   height=520></td>
+    <td><img src="Screenshot_20201130-145644.jpg" width=240 height=520></td>
+  </tr>
+ </table>
 
 
 Credits:
