@@ -53,10 +53,79 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height / 2.5,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(55),
+                      bottomLeft: Radius.circular(55)
+                  ),
+                  color: Colors.white24),
+              child: Padding(
+                padding: const EdgeInsets.all(3),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height / 3,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(55),
+                                bottomLeft: Radius.circular(55)
+                            ),),
+                        child: _toggled ? Chart(_data)
+                            : Image.asset("assets/beat.jpg",
+                          width: MediaQuery.of(context).size.width,)
+                    ),
+                    Expanded(child: SizedBox(height: 5,)),
+                    Text(
+                      "Estimated BPM",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    ),
+                    Text(
+                      (_bpm > 30 && _bpm < 150 ? _bpm.toString() : "--"),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 35),
+            Transform.scale(
+                scale: _iconScale,
+                child: GestureDetector(
+                  onTap: () {
+                    if (_toggled) {
+                      _untoggle();
+                    } else {
+                      _toggle();
+                    }
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Color(0xffcd0000),
+                    radius: 60,
+                    child: CircleAvatar(
+                      radius: 58,
+                      backgroundColor: _toggled ? Colors.transparent : Colors.black,
+                      backgroundImage: _toggled ? AssetImage(
+                        "assets/beat.jpg",) : null,
+                      child: !_toggled ? Text("Start",style: TextStyle(color: Colors.white,fontSize: 25,)) : null,
+                    ),
+                  ),
+                )
+            ),
+            SizedBox(height: 35),
             Expanded(
                 flex: 1,
                 child: Row(
@@ -64,99 +133,55 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(18),
-                          ),
-                          child: Stack(
-                            fit: StackFit.expand,
-                            alignment: Alignment.center,
-                            children: <Widget>[
-                              _controller != null && _toggled
-                                  ? AspectRatio(
-                                      aspectRatio:
-                                          _controller.value.aspectRatio,
-                                      child: CameraPreview(_controller),
-                                    )
-                                  : Container(
-                                      padding: EdgeInsets.all(12),
-                                      alignment: Alignment.center,
-                                      color: Colors.grey,
-                                    ),
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(4),
-                                child: Text(
-                                  _toggled
-                                      ? "Cover both the camera and the flash with your finger"
-                                      : "Camera feed will display here",
-                                  style: TextStyle(
-                                      backgroundColor: _toggled
-                                          ? Colors.white
-                                          : Colors.transparent),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(55),
+                          topRight: Radius.circular(55)
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            _controller != null && _toggled
+                                ? AspectRatio(
+                                    aspectRatio:
+                                        _controller.value.aspectRatio,
+                                    child: CameraPreview(_controller),
+                                  )
+                                : Container(
+                                    padding: EdgeInsets.all(12),
+                                    alignment: Alignment.center,
+                                    color: Colors.white24,
+                                  ),
+                            Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(4),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.camera_alt_outlined,size: 60,color: _toggled
+                                      ? Colors.white
+                                      : Colors.grey),
+                                  Text(
+                                    _toggled
+                                        ? " Cover both the camera and the flash with your finger ."
+                                        : " Camera feed will display here .",
+                                    style: TextStyle(
+                                        backgroundColor: _toggled
+                                            ? Colors.white
+                                            : Colors.grey),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Center(
-                          child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Estimated BPM",
-                            style: TextStyle(fontSize: 18, color: Colors.grey),
-                          ),
-                          Text(
-                            (_bpm > 30 && _bpm < 150 ? _bpm.toString() : "--"),
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )),
-                    ),
                   ],
-                )),
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: Transform.scale(
-                  scale: _iconScale,
-                  child: IconButton(
-                    icon:
-                        Icon(_toggled ? Icons.favorite : Icons.favorite_border),
-                    color: Colors.red,
-                    iconSize: 128,
-                    onPressed: () {
-                      if (_toggled) {
-                        _untoggle();
-                      } else {
-                        _toggle();
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                margin: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(18),
-                    ),
-                    color: Colors.black),
-                child: Chart(_data),
-              ),
+                )
             ),
           ],
         ),
