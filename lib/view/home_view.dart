@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_better_camera/camera.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:wakelock/wakelock.dart';
+import 'setting.dart';
 import 'utils/chart.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
   bool _toggled = false; // toggle button value
-  List<SensorValue> _data = List<SensorValue>(); // array to store the values
+  List<SensorValue> _data = <SensorValue>[]; // array to store the values
   CameraController _controller;
   double _alpha = 0.3; // factor for the mean value
   AnimationController _animationController;
@@ -49,6 +51,9 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
     _animationController?.dispose();
     super.dispose();
   }
+
+  int maxbpm = 0;
+  int minbpm = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -240,8 +245,8 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
       _controller.startImageStream((CameraImage image) {
         _image = image;
       });
-    } catch (Exception) {
-      debugPrint(Exception);
+    } catch (exception) {
+      debugPrint(exception);
     }
   }
 
@@ -313,6 +318,11 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
         print(_bpm);
         setState(() {
           this._bpm = ((1 - _alpha) * this._bpm + _alpha * _bpm).toInt();
+          if (minbpm == 0) {
+            minbpm = this._bpm;
+          }
+          if (this._bpm > maxbpm) maxbpm = this._bpm;
+          if (this._bpm < minbpm) minbpm = this._bpm;
         });
       }
       await Future.delayed(Duration(

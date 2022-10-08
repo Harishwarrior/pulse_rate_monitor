@@ -8,8 +8,11 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.TimeSeriesChart([
+    return new charts.TimeSeriesChart(
+      
+      [
       charts.Series<SensorValue, DateTime>(
+
         id: 'Values',
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (SensorValue values, _) => values.time,
@@ -17,6 +20,7 @@ class Chart extends StatelessWidget {
         data: _data
       )
     ],
+    
         animate: false,
         primaryMeasureAxis: charts.NumericAxisSpec(
           tickProviderSpec:
