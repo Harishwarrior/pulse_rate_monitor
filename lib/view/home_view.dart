@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_better_camera/camera.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:wakelock/wakelock.dart';
+import 'setting.dart';
 import 'utils/chart.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
   bool _toggled = false; // toggle button value
-  List<SensorValue> _data = List<SensorValue>(); // array to store the values
+  List<SensorValue> _data = <SensorValue>[]; // array to store the values
   CameraController _controller;
   double _alpha = 0.3; // factor for the mean value
   AnimationController _animationController;
@@ -50,115 +52,216 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  int maxbpm = 0;
+  int minbpm = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Settings();
+                  },
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(18),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              CircularPercentIndicator(
+                center: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Transform.scale(
+                        scale: _iconScale,
+                        child: IconButton(
+                          icon: Icon(
+                            _toggled ? Icons.favorite : Icons.favorite_border,
                           ),
-                          child: Stack(
-                            fit: StackFit.expand,
-                            alignment: Alignment.center,
-                            children: <Widget>[
-                              _controller != null && _toggled
-                                  ? AspectRatio(
-                                      aspectRatio:
-                                          _controller.value.aspectRatio,
-                                      child: CameraPreview(_controller),
-                                    )
-                                  : Container(
-                                      padding: EdgeInsets.all(12),
-                                      alignment: Alignment.center,
-                                      color: Colors.grey,
-                                    ),
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(4),
-                                child: Text(
-                                  _toggled
-                                      ? "Cover both the camera and the flash with your finger"
-                                      : "Camera feed will display here",
-                                  style: TextStyle(
-                                      backgroundColor: _toggled
-                                          ? Colors.white
-                                          : Colors.transparent),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
+                          color: Colors.red,
+                          iconSize: 60,
+                          onPressed: () {
+                            if (_toggled) {
+                              _untoggle();
+                            } else {
+                              _toggle();
+                            }
+                          },
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Center(
-                          child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Estimated BPM",
-                            style: TextStyle(fontSize: 18, color: Colors.grey),
-                          ),
-                          Text(
-                            (_bpm > 30 && _bpm < 150 ? _bpm.toString() : "--"),
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )),
+                    Text(
+                      (_bpm.toString()),
+                      style: TextStyle(
+                        fontSize: 90,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'BPM',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
                     ),
                   ],
-                )),
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: Transform.scale(
-                  scale: _iconScale,
-                  child: IconButton(
-                    icon:
-                        Icon(_toggled ? Icons.favorite : Icons.favorite_border),
-                    color: Colors.red,
-                    iconSize: 128,
-                    onPressed: () {
-                      if (_toggled) {
-                        _untoggle();
-                      } else {
-                        _toggle();
-                      }
-                    },
-                  ),
+                ),
+                radius: 150,
+                lineWidth: 4,
+                arcBackgroundColor: Colors.grey,
+                arcType: ArcType.FULL,
+                progressColor: Theme.of(context).primaryColor,
+                percent:
+                    (_bpm.toDouble() / 200) > 1 ? 1 : (_bpm.toDouble() / 200),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Place index finger on the camera',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                margin: EdgeInsets.all(12),
-                decoration: BoxDecoration(
+              Expanded(
+                flex: 2,
+                child: Container(
+                  margin: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF2296CB).withOpacity(0.9),
+                        Color(0xFF2296CB).withOpacity(0.8),
+                        Color(0xFF2296CB).withOpacity(0.7),
+                        Color(0xFF2296CB).withOpacity(0.6),
+                        Color(0xFF2296CB).withOpacity(0.5),
+                        Color(0xFF2296CB).withOpacity(0.4),
+                        Color(0xFF2296CB).withOpacity(0.3),
+                        Color(0xFF2296CB).withOpacity(0.2),
+                        Color(0xFF2296CB).withOpacity(0.1),
+                        Color(0xFF2296CB).withOpacity(0.0),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.0),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.1),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.2),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.3),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.4),
+                        Theme.of(context)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.5),
+                      ],
+                    ),
                     borderRadius: BorderRadius.all(
                       Radius.circular(18),
                     ),
-                    color: Colors.black),
-                child: Chart(_data),
+                  ),
+                  child: Chart(_data),
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'MIN',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              minbpm.toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'BPM',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey.shade400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'MAX',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              maxbpm.toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'BPM',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey.shade400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -215,8 +318,8 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
       _controller.startImageStream((CameraImage image) {
         _image = image;
       });
-    } catch (Exception) {
-      debugPrint(Exception);
+    } catch (exception) {
+      debugPrint(exception);
     }
   }
 
@@ -288,6 +391,11 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
         print(_bpm);
         setState(() {
           this._bpm = ((1 - _alpha) * this._bpm + _alpha * _bpm).toInt();
+          if (minbpm == 0) {
+            minbpm = this._bpm;
+          }
+          if (this._bpm > maxbpm) maxbpm = this._bpm;
+          if (this._bpm < minbpm) minbpm = this._bpm;
         });
       }
       await Future.delayed(Duration(
