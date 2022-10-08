@@ -8,6 +8,7 @@ Application that measures the pulse rate using the phone's camera and its flash.
   <tr>
     <td>Home screen</td>
      <td>Monitoring</td>
+     <td>Light Theme</td>
   </tr>
   <tr>
     <td><img src="App1.png" width=240   height=520></td>
