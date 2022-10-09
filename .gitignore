@@ -25,6 +25,7 @@ doc/api/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
+.fvm/
 
 # Android related
 **/android/**/gradle-wrapper.jar
