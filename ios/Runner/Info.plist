@@ -41,5 +41,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartobservatory._tcp</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to camera to measure pulse rate</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires access to camera to microphone</string>
 </dict>
 </plist>
