@@ -1,9 +1,9 @@
-# pulse_rate_monitor
+# Pulse_Rate_Monitor❤️
+A app based heart rate monitor that measures pulse from the fingertip using phone's camera and its flash.
 
-Application that measures the pulse rate using the phone's camera and its flash.
+---
 
-
-# Screenshots
+## Screenshots
 <table>
   <tr>
     <td>Home screen</td>
@@ -22,6 +22,10 @@ Application that measures the pulse rate using the phone's camera and its flash.
   </tr>
  </table>
 
+---
+
+## How to use it
+First place your finger on the device so that it covers both the flash and the camera. The flash should turn on during the measurement. Try to keep your finger as stable as possible because even small movements will disrupt the measurement. The BPM reading should be accurate when the graph looks stable as shown in the screenshot above.
 
 Credits:
 [Afonsocraposo](https://github.com/Afonsocraposo)
