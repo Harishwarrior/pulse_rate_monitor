@@ -14,6 +14,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ref.watch(isDarkModeProvider) ? lightTheme : darkTheme,
       home: HomePage(),
     );
