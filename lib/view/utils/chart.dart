@@ -14,10 +14,10 @@ class Chart extends StatelessWidget {
       charts.Series<SensorValue, DateTime>(
 
         id: 'Values',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
         domainFn: (SensorValue values, _) => values.time,
         measureFn: (SensorValue values, _) => values.value,
-        data: _data
+        data: _data,
       )
     ],
     
@@ -28,8 +28,7 @@ class Chart extends StatelessWidget {
           renderSpec: charts.NoneRenderSpec(),
         ),
         domainAxis: new charts.DateTimeAxisSpec(
-            renderSpec: new charts.NoneRenderSpec(),)
-    );
+            renderSpec: new charts.NoneRenderSpec()));
   }
 }
 
