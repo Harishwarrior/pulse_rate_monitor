@@ -51,5 +51,7 @@
 	<string>This app requires access to camera to measure pulse rate</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app requires access to camera to microphone</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>
