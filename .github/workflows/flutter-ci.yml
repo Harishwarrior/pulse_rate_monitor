@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - stable
 
 name: Build and Release Apps
 jobs:
