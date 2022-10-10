@@ -15,14 +15,14 @@ class HomePage extends StatefulWidget {
 
 class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
   bool _toggled = false; // toggle button value
-  List<SensorValue> _data = <SensorValue>[]; // array to store the values
+  final List<SensorValue> _data = <SensorValue>[]; // array to store the values
   CameraController _controller;
-  double _alpha = 0.3; // factor for the mean value
+  final double _alpha = 0.3; // factor for the mean value
   AnimationController _animationController;
   double _iconScale = 1;
   int _bpm = 0; // beats per minute
-  int _fs = 30; // sampling frequency (fps)
-  int _windowLen = 30 * 6; // window length to display - 6 seconds
+  final int _fs = 30; // sampling frequency (fps)
+  final int _windowLen = 30 * 6; // window length to display - 6 seconds
   CameraImage _image; // store the last camera image
   double _avg; // store the average value during calculation
   DateTime _now; // store the now Datetime
@@ -34,7 +34,7 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
     _animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
     _animationController
-      ..addListener(() {
+      .addListener(() {
         setState(() {
           _iconScale = 1.0 + _animationController.value * 0.4;
         });
@@ -271,11 +271,12 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
     // create array of 128 ~= 255/2
     _data.clear();
     int now = DateTime.now().millisecondsSinceEpoch;
-    for (int i = 0; i < _windowLen; i++)
+    for (int i = 0; i < _windowLen; i++) {
       _data.insert(
           0,
           SensorValue(
               DateTime.fromMillisecondsSinceEpoch(now - i * 1000 ~/ _fs), 128));
+    }
   }
 
   void _toggle() {
@@ -366,10 +367,10 @@ class HomePageView extends State<HomePage> with SingleTickerProviderStateMixin {
       _avg = 0;
       _n = _values.length;
       _m = 0;
-      _values.forEach((SensorValue value) {
+      for (var value in _values) {
         _avg += value.value / _n;
         if (value.value > _m) _m = value.value;
-      });
+      }
       _threshold = (_m + _avg) / 2;
       _bpm = 0;
       _counter = 0;
