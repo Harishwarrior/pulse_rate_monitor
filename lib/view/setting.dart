@@ -19,13 +19,43 @@ class Settings extends ConsumerWidget {
         elevation: 0,
         title: Text('Settings'),
       ),
-      body: Center(
-        child: CupertinoSwitch(
-          value: !isDarkMode,
-          activeColor: Colors.blue,
-          onChanged: (value) {
-            ref.read(isDarkModeProvider.notifier).state = !isDarkMode;
-          },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 12,
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.dark_mode),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Dark Mode",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Center(
+                  child: CupertinoSwitch(
+                    value: !isDarkMode,
+                    activeColor: Colors.blue,
+                    onChanged: (value) {
+                      ref.read(isDarkModeProvider.notifier).state = !isDarkMode;
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
