@@ -4,17 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:pulse_rate_monitor/view/utils/AboutPage/licensespage.dart';
+import 'package:pulse_rate_monitor/view/utils/AboutPage/privacyPolicy.dart';
+import 'package:pulse_rate_monitor/view/utils/AboutPage/softwareLicenses.dart';
+import 'package:pulse_rate_monitor/view/utils/AboutPage/termsOfServices.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../provider/view_provider.dart';
-
-class AboutUs extends ConsumerWidget {
+class AboutUs extends StatelessWidget {
   const AboutUs({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkMode = ref.watch(isDarkModeProvider);
+  Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -27,7 +25,14 @@ class AboutUs extends ConsumerWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,
-        title: Text('About'),
+        title: Text(
+          'About',
+          style: TextStyle(
+            color: Colors.grey,
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
+        ),
         centerTitle: false,
       ),
       body: Container(
@@ -53,7 +58,93 @@ class AboutUs extends ConsumerWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return LicensesPage();
+                              return TermsOfServices();
+                            },
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.note,
+                            size: 24.0,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            'Terms of Service',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ), // <-- Text
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width - 24,
+                    height: 54,
+                    child: TextButton(
+                      style: ButtonStyle(
+                          textStyle: MaterialStateProperty.all(const TextStyle(
+                              fontSize: 20, color: Colors.grey))),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PrivacyPolicy();
+                            },
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.lock,
+                            size: 24.0,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            'Privacy Policy',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18,
+                            ),
+                          ), // <-- Text
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width - 24,
+                    height: 54,
+                    child: TextButton(
+                      style: ButtonStyle(
+                          textStyle: MaterialStateProperty.all(const TextStyle(
+                              fontSize: 20, color: Colors.grey))),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SoftwareLicenses();
                             },
                           ),
                         );
