@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../provider/view_provider.dart';
 
 class Settings extends ConsumerWidget {
-  Settings({Key key}) : super(key: key);
+  const Settings({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

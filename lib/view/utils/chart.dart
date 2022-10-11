@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 class Chart extends StatelessWidget {
   final List<SensorValue> _data;
 
-  Chart(this._data);
+  const Chart(this._data);
 
   @override
   Widget build(BuildContext context) {
-    return new charts.TimeSeriesChart(
+    return charts.TimeSeriesChart(
       
       [
       charts.Series<SensorValue, DateTime>(
@@ -27,8 +27,8 @@ class Chart extends StatelessWidget {
               charts.BasicNumericTickProviderSpec(zeroBound: false),
           renderSpec: charts.NoneRenderSpec(),
         ),
-        domainAxis: new charts.DateTimeAxisSpec(
-            renderSpec: new charts.NoneRenderSpec()));
+        domainAxis: charts.DateTimeAxisSpec(
+            renderSpec: charts.NoneRenderSpec()));
   }
 }
 
