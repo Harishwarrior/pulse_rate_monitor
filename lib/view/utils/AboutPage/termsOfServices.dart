@@ -16,6 +16,7 @@ class TermsOfServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -42,10 +43,7 @@ class TermsOfServices extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              height: 18,
+              height: height * 0.05,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(47, 47, 47, 16),

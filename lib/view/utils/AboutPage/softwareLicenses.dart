@@ -11,6 +11,7 @@ class SoftwareLicenses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -42,7 +43,7 @@ class SoftwareLicenses extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 18,
+                height: height * 0.015,
               ),
               Center(
                 child: Text(
@@ -55,7 +56,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 44,
+                height: height * 0.05,
               ),
               Text(
                 "Abseil",
@@ -74,7 +75,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "absell-cpp",
@@ -93,7 +94,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "accessibility",
@@ -112,7 +113,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "android",
@@ -131,7 +132,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "Android SDK",
@@ -150,7 +151,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "Android Settings Library",
@@ -169,7 +170,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "android_build",
@@ -188,7 +189,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "android_intent",
@@ -207,7 +208,7 @@ class SoftwareLicenses extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: height * 0.03,
               ),
               Text(
                 "android_lifecycle",
