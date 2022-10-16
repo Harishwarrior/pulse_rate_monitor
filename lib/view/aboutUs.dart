@@ -5,7 +5,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pulse_rate_monitor/view/utils/AboutPage/privacyPolicy.dart';
+
 import 'package:pulse_rate_monitor/view/utils/AboutPage/softwareLicenses.dart';
 import 'package:pulse_rate_monitor/view/utils/AboutPage/termsOfServices.dart';
 import '../provider/view_provider.dart';
@@ -111,7 +111,7 @@ class AboutUs extends ConsumerWidget {
                             width: 20,
                           ),
                           Text(
-                            'Version 163.1.6 (arm64-\nv8a_release_flutter)',
+                            'Version 1.0.1+2 (arm64-\nv8a_release_flutter)',
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 18,
