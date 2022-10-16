@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pulse_rate_monitor/view/utils/AboutPage/privacyPolicy.dart';
 import 'package:pulse_rate_monitor/view/utils/AboutPage/softwareLicenses.dart';
 import 'package:pulse_rate_monitor/view/utils/AboutPage/termsOfServices.dart';
+import '../provider/view_provider.dart';
 
-class AboutUs extends StatelessWidget {
+class AboutUs extends ConsumerWidget {
   const AboutUs({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = ref.watch(isDarkModeProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(

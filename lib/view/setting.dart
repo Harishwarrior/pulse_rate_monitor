@@ -48,18 +48,22 @@ class Settings extends ConsumerWidget {
                   ],
                 ),
                 Center(
-                  child: CupertinoSwitch(
-                    value: !isDarkMode,
-                    activeColor: Colors.blue,
-                    onChanged: (value) {
-                      ref.read(isDarkModeProvider.notifier).state = !isDarkMode;
-                    },
+                  child: Transform.scale(
+                    scale: 1.2,
+                    child: Switch.adaptive(
+                      value: !isDarkMode,
+                      activeColor: Colors.blue,
+                      onChanged: (value) {
+                        ref.read(isDarkModeProvider.notifier).state =
+                            !isDarkMode;
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: MediaQuery.of(context).size.height * 0.74,
             ),
             Row(
               children: [
