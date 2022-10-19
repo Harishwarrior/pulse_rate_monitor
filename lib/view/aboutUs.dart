@@ -7,7 +7,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:pulse_rate_monitor/view/utils/AboutPage/softwareLicenses.dart';
-import 'package:pulse_rate_monitor/view/utils/AboutPage/termsOfServices.dart';
 import '../provider/view_provider.dart';
 
 class AboutUs extends ConsumerWidget {
