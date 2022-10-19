@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - stable
+  workflow_dispatch:
 
 name: Build and Release Apps
 jobs:
