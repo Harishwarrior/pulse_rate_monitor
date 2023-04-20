@@ -27,12 +27,17 @@ jobs:
         run: flutter upgrade
       - name: Install pub Dependencies
         run: flutter pub get
-      - name: Build Android App
+      - name: Build Android Release App
         run: flutter build apk --split-per-abi
+      - name: Build Android Debug App
+        run: flutter build apk --debug --split-per-abi
       - name: Release Apps
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.APP_VERSION }}
           name: ${{ env.APP_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "build/app/outputs/apk/release/*.apk"
+          artifacts: |
+            build/app/outputs/apk/release/*.apk
+            build/app/outputs/apk/debug/*.apk
+          
