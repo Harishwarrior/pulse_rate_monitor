@@ -1,21 +1,16 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pulse_rate_monitor/provider/view_provider.dart';
-import 'package:pulse_rate_monitor/theme_data.dart';
-import 'package:pulse_rate_monitor/view/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pulse_rate_monitor/src/app.dart';
+import 'package:pulse_rate_monitor/src/common/shared_preferences/shared_preference_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  // required for using shared preferences .. etc
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// Storing instance of SharedPreference
+  SharedPreferenceManager.instance = await SharedPreferences.getInstance();
   runApp(
-    ProviderScope(child: MyApp()),
+    const ProviderScope(child: MyApp()),
   );
-}
-
-class MyApp extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
-      theme: ref.watch(isDarkModeProvider) ? lightTheme : darkTheme,
-      home: HomePage(),
-    );
-  }
 }
